@@ -41,14 +41,18 @@ function CustomerDetailPage() {
     fetchCustomer();
   }, [id]); // re-fetch whenever the id in the URL changes
 
-  useEffect(() => {
-    const fetchInteractions = async () => {
-      const response = await fetch(`${API_BASE}/interactions?customerId=${id}`);
-      const data = await response.json();
-      setInteractions(data);
-    };
-    fetchInteractions();
-  }, [id]);
+useEffect(() => {
+  const fetchInteractions = async () => {
+    const response = await fetch(`${API_BASE}/interactions?customerId=${id}`);
+    if (!response.ok) {
+      setInteractions([]);
+      return;
+    }
+    const data = await response.json();
+    setInteractions(data);
+  };
+  fetchInteractions();
+}, [id]); // re-fetch only when the id in the URL changes
 
   if (loading) {
     return (
@@ -102,11 +106,7 @@ function CustomerDetailPage() {
           >
             {customer.status}
           </span>
-          {customer.tags.map((tag) => (
-            <span key={tag} className={styles.tag}>
-              {tag}
-            </span>
-          ))}
+
         </div>
       </div>
 

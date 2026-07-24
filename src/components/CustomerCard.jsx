@@ -39,13 +39,7 @@ function CustomerCard({ customer, onSelect }) {
       </div>
 
       <div className={styles.footer}>
-        <div className={styles.tags}>
-          {tags.map((tag) => (
-            <span key={tag} className={styles.tag}>
-              {tag}
-            </span>
-          ))}
-        </div>
+
         <button
           className={styles.deleteButton}
           onClick={(e) => {

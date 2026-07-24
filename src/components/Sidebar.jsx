@@ -21,9 +21,10 @@ function navLinkClass({ isActive }) {
 function Sidebar() {
   const { user, logout } = useContext(AuthContext);
 
-  if (import.meta.env.DEV) {
-    console.log("API_BASE:", import.meta.env.VITE_API_BASE_URL);
-  }
+
+if (import.meta.env.DEV) {
+  console.log("API_BASE:", import.meta.env.VITE_API_BASE_URL);
+}
 
   return (
     <aside className={styles.sidebar}>
@@ -53,6 +54,21 @@ function Sidebar() {
         </NavLink>
       </nav>
 
+<div className={styles.footWho}>
+  <div className={styles.footName}>{user.name}</div>
+  <span
+    className={`${styles.roleBadge} ${user.role === "admin" ? styles.roleBadgeAdmin : styles.roleBadgeUser}`}
+  >
+    {user.role}
+  </span>
+  <span
+    className={`${styles.roleBadge} ${
+      import.meta.env.DEV ? styles.roleBadgeUser : styles.roleBadgeAdmin
+    }`}
+  >
+    {import.meta.env.MODE}
+  </span>
+</div>
       <div className={styles.foot}>
         <div className={styles.footAvatar}>{initials(user.name)}</div>
         <div className={styles.footWho}>
